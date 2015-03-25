@@ -123,6 +123,7 @@ void removeClient(int sd)
         if(it->second->incoming == sd || it->second->outgoing == sd)
             clients.erase(it);
     }
+    sendUsers();
 }
 
 CLIENT* getClientByIncoming(int incoming)
@@ -162,6 +163,13 @@ void addUser(int sd, char* userName)
 {
     CLIENT* c = getClientByIncoming(sd);
     c->name.assign(userName);
+
+    sendUsers();
+
+}
+
+void sendUsers()
+{
     string message(1, user_char);
 
     map<string, CLIENT*>::iterator it;

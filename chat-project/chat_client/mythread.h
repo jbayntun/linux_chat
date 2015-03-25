@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <QString>
+#include <QSemaphore>
 #include <string>
 /**
  * @brief The MyThread class
@@ -16,11 +17,15 @@ class MyThread : public QThread
 public:
     explicit MyThread(QObject* parent = 0, bool b = false);
     void run();
+public slots:
+    void initThread(QSemaphore*);
 signals:
     void valueChanged(QString message);
     void userChanged(QString message);
 private:
         bool Stop;
+        bool running;
+        QSemaphore* sem;
 
 
 

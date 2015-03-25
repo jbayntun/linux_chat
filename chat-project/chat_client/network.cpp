@@ -98,15 +98,33 @@ void sendMessage(std::string& message)
 std::string receiveMessage()
 {
     std::string message;
-    int n;
+    int n = 0;
     int bytes_to_read = RECEIVE_SIZE;
     char buf[RECEIVE_SIZE];
     char* bp = buf;
-    while ((n = recv(rcv_socket, bp, bytes_to_read, 0)) < bytes_to_read)
+
+    printf("network rcv entered\n");
+    fflush(stdout);
+
+    while (n < bytes_to_read)
         {
+            n = recv(rcv_socket, bp, bytes_to_read, 0);
+            printf("network rcv while\n");
+            fflush(stdout);
+            if( n < 1 )
+            {
+                printf("network got empty", bp);
+                fflush(stdout);
+                message.assign("");
+                return message;
+            }
             bp += n;
             bytes_to_read -= n;
         }
+
+    printf("network after: %s\n", bp);
+    fflush(stdout);
+
     message.assign(buf);
     return message;
 }

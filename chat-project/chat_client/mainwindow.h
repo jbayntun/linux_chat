@@ -4,8 +4,12 @@
 #include <QMainWindow>
 #include <QtOpenGL>
 #include <QThread>
+#include <QSemaphore>
+
+#include <iostream>
 #include <string>
 #include <vector>
+
 
 #include <stdio.h>
 #include <netdb.h>
@@ -30,25 +34,30 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void gogoThread();
     ~MainWindow();
 
 signals:
     void emitMessage(std::string message);
+    void killThread();
+    void startThread(QSemaphore*);
+
 
 public slots:
     void connectClicked();
     void sendClicked();
     void messageRecieved(QString message);
-    void connectionEstablisted(std::vector<std::string> userList);
     void peerChanged(QString peer);
     void saveToFile();
+    void abortConnection();
 
 private:
     Ui::MainWindow *ui;
     bool connected;
     std::string userName;
     QString q_messages;
-    MyThread rcv_thread;
+    MyThread* rcv_thread;
+    QSemaphore* sem;
 
 };
 

@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->host_name->setText("127.0.0.1");
     connected = false;
 
+    sem = new QSemaphore(0);
+
     connect(ui->connect_button, SIGNAL(clicked()), this, SLOT(connectClicked()));
     connect(ui->send_button, SIGNAL(clicked()), this, SLOT(sendClicked()));
     connect(ui->save, SIGNAL(clicked()), this, SLOT(saveToFile()));
@@ -23,7 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    emit(killThread());
+    wait();
     delete ui;
+    delete sem;
 }
 
 void MainWindow::connectClicked()
@@ -31,14 +36,7 @@ void MainWindow::connectClicked()
         //close connection if already connected(button says abort...)
     if(connected)
     {
-        closeChat();
-        connected = false;
-        ui->conversation->setText("");
-       // ui->user_list->
-        ui->message->setEnabled(false);
-        ui->connect_button->setText("Connect");
-        ui->send_button->setEnabled(false);
-        ui->save->setEnabled(false);
+        abortConnection();
         return;
     }
 
@@ -50,28 +48,45 @@ void MainWindow::connectClicked()
         return;
     }
 
-    ui->send_button->setEnabled(true);
-    ui->save->setEnabled(true);
-    ui->message->setEnabled(true);
-    ui->connect_button->setText("Abort Connection");
-    connected = true;
-
-    userName = ui->user_name->text().toStdString();
+    string users;
     string host = ui->host_name->text().toStdString();
     int port = ui->host_port->text().toInt();
+    userName = ui->user_name->text().toStdString();
 
-    string users;
     if( (users = initChat(host, port, userName)) == "")
     {
         return;
     }
+
+    ui->send_button->setEnabled(true);
+    ui->save->setEnabled(true);
+    ui->message->setEnabled(true);
+    ui->connect_button->setText("Abort Connection");
+    gogoThread();
+    connected = true;
+
+
+
+
     users.erase(users.begin());
     QString qstr = QString::fromStdString(users);
     peerChanged(qstr);
 
-    connect(&rcv_thread, SIGNAL( userChanged(QString) ), this, SLOT( peerChanged(QString) ));
-     connect(&rcv_thread, SIGNAL( valueChanged(QString) ), this, SLOT( messageRecieved(QString) ));
-     rcv_thread.start();
+    std::cout << "sem released\n";
+    fflush(stdout);
+    sem->release();
+}
+
+void MainWindow::gogoThread()
+{
+    rcv_thread = new MyThread();
+    connect(this, SIGNAL(killThread()), rcv_thread, SLOT(terminate()));
+    connect(this, SIGNAL(startThread(QSemaphore*)), rcv_thread, SLOT(initThread(QSemaphore*)));
+
+    connect(rcv_thread, SIGNAL( userChanged(QString) ), this, SLOT( peerChanged(QString) ));
+    connect(rcv_thread, SIGNAL( valueChanged(QString) ), this, SLOT( messageRecieved(QString) ));
+    emit(startThread(sem));
+    rcv_thread->start();
 }
 
 void MainWindow::sendClicked()
@@ -86,11 +101,6 @@ void MainWindow::messageRecieved(QString message)
     q_messages += message + "\n";
 
     ui->conversation->setText(q_messages);
-}
-
-void MainWindow::connectionEstablisted(std::vector<std::string> userList)
-{
-
 }
 
 void MainWindow::peerChanged(QString peer)
@@ -116,3 +126,19 @@ void MainWindow::saveToFile()
 
 }
 
+void MainWindow::abortConnection()
+{
+    closeChat();
+    connected = false;
+    ui->conversation->setText("");
+   // ui->user_list->
+    ui->message->setEnabled(false);
+    ui->message->clear();
+    ui->connect_button->setText("Connect");
+    ui->send_button->setEnabled(false);
+    ui->save->setEnabled(false);
+    ui->user_list->clear();
+    q_messages.clear();
+    // sets boolean so thread pauses
+    emit(killThread());
+}
