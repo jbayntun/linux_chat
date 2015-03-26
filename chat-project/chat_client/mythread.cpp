@@ -1,25 +1,79 @@
+/*--------------------------------------------------------------------------
+    PROGRAM:        chat_client
+
+    File:           mythread.cpp
+
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      explicit MyThread(QObject* parent = 0, bool b = false);
+                    void run();
+
+    SIGNALS:        void valueChanged(QString message);
+                    void userChanged(QString message);
+                    void connectionDropped();
+
+    NOTES:          thread to wait for received data.
+----------------------------------------------------------------------------*/
+
 #include "mythread.h"
 #include "network.h"
 #include <iostream>
+/*--------------------------------------------------------------------------
+    FUNCTION:       MyThread
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      MyThread
+
+    RETURNS:        constructor
+
+    NOTES:          calls parent constructor
+----------------------------------------------------------------------------*/
 MyThread::MyThread(QObject* parent, bool b) : QThread(parent), Stop(b)
 {
 
 }
 
+/*--------------------------------------------------------------------------
+    FUNCTION:       run
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      run()
+
+    RETURNS:        void
+
+    NOTES:          waits for incoming messages, when it gets one,
+                    if it starts with user_char ^ assumes it is
+                    usernames and emits userChangeds signal, else
+                    emits valueChanged signal with received message.
+
+                    on error, it emits connectionDropped signal
+----------------------------------------------------------------------------*/
 void MyThread::run()
 {
     std::string incoming;
     QString qstr;
     while(1)
     {
-        std::cout << "waiting for sem\n";
-        fflush(stdout);
-        sem->acquire();
-        std::cout << "sem acquired\n";
-        fflush(stdout);
-
        std::string incoming;
        QString qstr;
        while(1)
@@ -44,12 +98,7 @@ void MyThread::run()
            emit(valueChanged(qstr));
        }
 
-       std::cout << "got empty message";
+       emit(connectionDropped());
     }
-}
-
-void MyThread::initThread(QSemaphore* s)
-{
-    sem = s;
 }
 

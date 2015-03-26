@@ -4,12 +4,12 @@
 #include <QMainWindow>
 #include <QtOpenGL>
 #include <QThread>
-#include <QSemaphore>
+#include <QTime>
 
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <fstream>
 
 #include <stdio.h>
 #include <netdb.h>
@@ -40,7 +40,6 @@ public:
 signals:
     void emitMessage(std::string message);
     void killThread();
-    void startThread(QSemaphore*);
 
 
 public slots:
@@ -50,16 +49,14 @@ public slots:
     void peerChanged(QString peer);
     void saveToFile();
     void abortConnection();
+    void connectionDropped();
 
 private:
     Ui::MainWindow *ui;
     bool connected;
     std::string userName;
     QString q_messages;
-    MyThread* rcv_thread;
-    QSemaphore* sem;
-
-};
+    MyThread* rcv_thread;};
 
 
 #endif // MAINWINDOW_H

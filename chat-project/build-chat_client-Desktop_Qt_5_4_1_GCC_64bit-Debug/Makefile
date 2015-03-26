@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = chat_client1.0.0
-DISTDIR = /home/jeffrey/Desktop/LinuxGame/chat-project/chat_client/.tmp/chat_client1.0.0
+DISTDIR = /home/jeffrey/Desktop/LinuxChat/chat-project/chat_client/.tmp/chat_client1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/5.4/gcc_64 -Wl,-rpath,/opt/Qt/5.4/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/opt/Qt/5.4/gcc_64/lib -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -975,9 +975,12 @@ moc_mainwindow.cpp: /opt/Qt/5.4/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt/5.4/gcc_64/include/QtOpenGL/qglshaderprogram.h \
 		/opt/Qt/5.4/gcc_64/include/QtOpenGL/qtopenglversion.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QThread \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QSemaphore \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QTime \
 		../chat_client/mythread.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
 		../chat_client/mainwindow.h
-	/opt/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/opt/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/home/jeffrey/Desktop/LinuxGame/chat-project/chat_client -I/opt/Qt/5.4/gcc_64/include -I/opt/Qt/5.4/gcc_64/include/QtOpenGL -I/opt/Qt/5.4/gcc_64/include/QtWidgets -I/opt/Qt/5.4/gcc_64/include/QtGui -I/opt/Qt/5.4/gcc_64/include/QtCore -I. ../chat_client/mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/opt/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/home/jeffrey/Desktop/LinuxChat/chat-project/chat_client -I/opt/Qt/5.4/gcc_64/include -I/opt/Qt/5.4/gcc_64/include/QtOpenGL -I/opt/Qt/5.4/gcc_64/include/QtWidgets -I/opt/Qt/5.4/gcc_64/include/QtGui -I/opt/Qt/5.4/gcc_64/include/QtCore -I. ../chat_client/mainwindow.h -o moc_mainwindow.cpp
 
 moc_mythread.cpp: /opt/Qt/5.4/gcc_64/include/QtCore/QThread \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qthread.h \
@@ -1030,143 +1033,11 @@ moc_mythread.cpp: /opt/Qt/5.4/gcc_64/include/QtCore/QThread \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QtCore \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QtCoreDepends \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qanimationgroup.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qparallelanimationgroup.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpauseanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qvector.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmap.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpair.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qhash.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qset.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsequentialanimationgroup.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtextcodec.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qendian.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlibraryinfo.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbuffer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdir.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfileinfo.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdiriterator.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfileselector.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QObject \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QStringList \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlockfile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qloggingcategory.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qprocess.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qresource.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsavefile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsettings.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstandardpaths.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstorageinfo.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporarydir.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QScopedPointer \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporaryfile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qurl.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractproxymodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qidentityproxymodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsortfilterproxymodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlistmodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonarray.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonvalue.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsondocument.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonobject.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracteventdispatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbasictimer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmath.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmetaobject.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedata.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectcleanuphandler.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedmemory.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsocketnotifier.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemsemaphore.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtimer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtranslator.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qwineventnotifier.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedatabase.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmimetype.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfactoryinterface.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlibrary.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qplugin.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpluginloader.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/quuid.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractstate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracttransition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qeventtransition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfinalstate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qhistorystate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsignaltransition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstatemachine.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qexception.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfuture.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfutureinterface.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qrunnable.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qresultstore.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturesynchronizer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturewatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qreadwritelock.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QSemaphore \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qsemaphore.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadpool.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadstorage.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qwaitcondition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydataops.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydatapointer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbitarray.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearraymatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcache.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcollator.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineoption.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineparser.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcryptographichash.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qelapsedtimer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qline.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlinkedlist.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmargins.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmessageauthenticationcode.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qqueue.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qrect.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsize.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qscopedvaluerollback.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstack.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtextboundaryfinder.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtimeline.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtimezone.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qxmlstream.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtcoreversion.h \
 		../chat_client/mythread.h
-	/opt/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/opt/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/home/jeffrey/Desktop/LinuxGame/chat-project/chat_client -I/opt/Qt/5.4/gcc_64/include -I/opt/Qt/5.4/gcc_64/include/QtOpenGL -I/opt/Qt/5.4/gcc_64/include/QtWidgets -I/opt/Qt/5.4/gcc_64/include/QtGui -I/opt/Qt/5.4/gcc_64/include/QtCore -I. ../chat_client/mythread.h -o moc_mythread.cpp
+	/opt/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/opt/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/home/jeffrey/Desktop/LinuxChat/chat-project/chat_client -I/opt/Qt/5.4/gcc_64/include -I/opt/Qt/5.4/gcc_64/include/QtOpenGL -I/opt/Qt/5.4/gcc_64/include/QtWidgets -I/opt/Qt/5.4/gcc_64/include/QtGui -I/opt/Qt/5.4/gcc_64/include/QtCore -I. ../chat_client/mythread.h -o moc_mythread.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1650,7 +1521,10 @@ main.o: ../chat_client/main.cpp ../chat_client/mainwindow.h \
 		/opt/Qt/5.4/gcc_64/include/QtOpenGL/qglshaderprogram.h \
 		/opt/Qt/5.4/gcc_64/include/QtOpenGL/qtopenglversion.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QThread \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QSemaphore \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QTime \
 		../chat_client/mythread.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.4/gcc_64/include/QtWidgets/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../chat_client/main.cpp
 
@@ -2118,7 +1992,10 @@ mainwindow.o: ../chat_client/mainwindow.cpp ../chat_client/mainwindow.h \
 		/opt/Qt/5.4/gcc_64/include/QtOpenGL/qglshaderprogram.h \
 		/opt/Qt/5.4/gcc_64/include/QtOpenGL/qtopenglversion.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/QThread \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QSemaphore \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QTime \
 		../chat_client/mythread.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
 		ui_mainwindow.h \
 		/opt/Qt/5.4/gcc_64/include/QtWidgets/QAction \
 		/opt/Qt/5.4/gcc_64/include/QtWidgets/QApplication \
@@ -2196,141 +2073,9 @@ mythread.o: ../chat_client/mythread.cpp ../chat_client/mythread.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QtCore \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QtCoreDepends \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qanimationgroup.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qparallelanimationgroup.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpauseanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qvector.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmap.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpair.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qhash.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qset.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsequentialanimationgroup.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtextcodec.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qendian.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlibraryinfo.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbuffer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdir.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfileinfo.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qdiriterator.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfileselector.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QObject \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QStringList \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlockfile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qloggingcategory.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qprocess.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qresource.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsavefile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsettings.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstandardpaths.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstorageinfo.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporarydir.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/QScopedPointer \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtemporaryfile.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qurl.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractproxymodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qidentityproxymodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsortfilterproxymodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstringlistmodel.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonarray.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonvalue.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsondocument.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qjsonobject.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracteventdispatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbasictimer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmath.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmetaobject.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedata.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qobjectcleanuphandler.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsharedmemory.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsocketnotifier.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsystemsemaphore.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtimer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtranslator.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qwineventnotifier.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmimedatabase.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmimetype.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfactoryinterface.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlibrary.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qplugin.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qpluginloader.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/quuid.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstractstate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qabstracttransition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qeventtransition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfinalstate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qhistorystate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsignaltransition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstate.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstatemachine.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qexception.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfuture.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfutureinterface.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qrunnable.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qresultstore.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturesynchronizer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qfuturewatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qreadwritelock.h \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.4/gcc_64/include/QtCore/QSemaphore \
 		/opt/Qt/5.4/gcc_64/include/QtCore/qsemaphore.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadpool.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qthreadstorage.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qwaitcondition.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydataops.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qarraydatapointer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbitarray.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qbytearraymatcher.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcache.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcollator.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineoption.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcommandlineparser.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qcryptographichash.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qelapsedtimer.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qline.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qlinkedlist.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmargins.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qmessageauthenticationcode.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qqueue.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qrect.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qsize.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qscopedvaluerollback.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qstack.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtextboundaryfinder.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtimeline.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtimezone.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qxmlstream.h \
-		/opt/Qt/5.4/gcc_64/include/QtCore/qtcoreversion.h \
 		../chat_client/network.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mythread.o ../chat_client/mythread.cpp
 

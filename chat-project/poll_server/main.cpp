@@ -1,10 +1,44 @@
+/*--------------------------------------------------------------------------
+    PROGRAM:        poll_server
+
+    File:           main.cpp
+
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      main()
+
+    NOTES:          Creates server that accepts chat clients. Echos all
+                    messages sent to server to all clients.
+----------------------------------------------------------------------------*/
 #include "network.h"
 #include <iostream>
 
 using namespace std;
 
-// should make a map for ip and socket numbers
+/*--------------------------------------------------------------------------
+    FUNCTION:       int main()
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      int main()
+
+    RETURNS:        0 on normal exit
+
+    NOTES:          Creates datastructures for pollfd structs and clients,
+                    then calls poll and handles results as needed
+----------------------------------------------------------------------------*/
 int main()
 {
     struct pollfd sockets[MAX_CONNECTIONS + 1];

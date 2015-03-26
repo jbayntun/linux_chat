@@ -1,7 +1,51 @@
+/*--------------------------------------------------------------------------
+    PROGRAM:        poll_server
+
+    File:           network.cpp
+
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      int createListenSocket(int port);
+                    void sendToAll(int client, const char* message);
+                    bool acceptConnection(struct pollfd* sockets);
+                    bool addNewConnection(struct pollfd* sockets, int s);
+                    int closeAllSockets(struct pollfd* sockets);
+                    void checkForEvents(struct pollfd* sockets);
+                    CLIENT* getClientByOutgoing(int outgoing);
+                    CLIENT* getClientByIncoming(int incoming);
+                    void removeClient(int sd);
+                    void sendUsers();
+
+    NOTES:          handles network connections for echo chat server.
+                    uses poll() to handle connections
+----------------------------------------------------------------------------*/
 #include "network.h"
 
 using namespace std;
+/*--------------------------------------------------------------------------
+    FUNCTION:       createListenSocket
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      int createListenSocket(int port)
+                    port: port to listen on
+
+    RETURNS:        port number, -1 on failure
+
+    NOTES:          Creates a socket, binds it to a port and calls listen
+----------------------------------------------------------------------------*/
 int createListenSocket(int port)
 {
     int sd, arg;
@@ -39,7 +83,27 @@ int createListenSocket(int port)
         return sd;
 
 }
+/*--------------------------------------------------------------------------
+    FUNCTION:       sendToAll
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      void sendToAll(int client, const char* message)
+                    client: socket of client sending message
+                    message: pointer to message to send
+
+    RETURNS:        void
+
+    NOTES:          Sends message recieved to all clients, if message is
+                    user name (new user or user left) sends properly
+                    formatted message with all usernames ^username^...
+----------------------------------------------------------------------------*/
 void sendToAll(int client, const char* message)
 {
     char toSend[SEND_SIZE];
@@ -68,7 +132,27 @@ void sendToAll(int client, const char* message)
         send(it->second->outgoing, actuallySending, SEND_SIZE, 0);
     }
 }
+/*--------------------------------------------------------------------------
+    FUNCTION:       acceptConnection
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      bool acceptConnection(struct pollfd* sockets)
+                    sockets: pointer to pollfd struct containing all sockets
+                             currently being listened to
+
+    RETURNS:        false on error
+
+    NOTES:          accepts connection, adds socket to list of sockets to
+                    listen to with poll, adds new client, or, if client
+                    already exists, adds socket to that client
+----------------------------------------------------------------------------*/
 bool acceptConnection(struct pollfd* sockets)
 {
     int new_sd;
@@ -100,7 +184,27 @@ bool acceptConnection(struct pollfd* sockets)
     }
     return addNewConnection(sockets, new_sd);
 }
+/*--------------------------------------------------------------------------
+    FUNCTION:       addNewConnection
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      bool addNewConnection(struct pollfd* sockets, int s)
+                    sockets: pointer to pollfd struct containing all sockets
+                             currently being listened to
+                    s: socket to add
+
+    RETURNS:        false on error
+
+    NOTES:          adds this socket to a spot in the array that is currently
+                    less than 1 (meaning it has no socket)
+----------------------------------------------------------------------------*/
 bool addNewConnection(struct pollfd* sockets, int s)
 {
     for (int i = 1; i < MAX_CONNECTIONS + 1; i++)
@@ -114,18 +218,58 @@ bool addNewConnection(struct pollfd* sockets, int s)
     }
     return false;
 }
+/*--------------------------------------------------------------------------
+    FUNCTION:       removeClient
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      void removeClient(int sd)
+                    sd: socket for this client
+
+    RETURNS:        void
+
+    NOTES:          closes sockets and removes client from map, sends updated
+                    list of clients to remaining users
+----------------------------------------------------------------------------*/
 void removeClient(int sd)
 {
     map<string, CLIENT*>::iterator it;
     for(it= clients.begin(); it != clients.end(); it++)
     {
         if(it->second->incoming == sd || it->second->outgoing == sd)
+        {
+            close(it->second->incoming);
+            close(it->second->outgoing);
             clients.erase(it);
+        }
     }
     sendUsers();
 }
 
+/*--------------------------------------------------------------------------
+    FUNCTION:       getClientByIncoming
+
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      CLIENT* getClientByIncoming(int incoming)
+                    incoming: incoming socket of client
+
+    RETURNS:        client struct or NULL
+
+    NOTES:          finds client based on incoming socket
+----------------------------------------------------------------------------*/
 CLIENT* getClientByIncoming(int incoming)
 {
     map<string, CLIENT*>::iterator it;
@@ -136,7 +280,24 @@ CLIENT* getClientByIncoming(int incoming)
     }
     return NULL;
 }
+/*--------------------------------------------------------------------------
+    FUNCTION:       getClientByOutgoing
 
+    DATE:           March 20, 2015
+
+    REVISIONS:      (Date and Description)
+
+    DESIGNER:       Jeff Bayntun
+
+    PROGRAMMER:     Jeff Bayntun
+
+    INTERFACE:      CLIENT* getClientByOutgoing(int outgoing)
+                    outgoing: outgoing socket of client
+
+    RETURNS:        client struct or NULL
+
+    NOTES:          finds client based on outgoing socket
+----------------------------------------------------------------------------*/
 CLIENT* getClientByOutgoing(int outgoing)
 {
     map<string, CLIENT*>::iterator it;
